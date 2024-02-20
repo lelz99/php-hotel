@@ -1,5 +1,8 @@
 <?php
 require __DIR__ . '/data/hotel.php';
+
+$vote = $_GET['vote'] ?? '';
+$parking = $_GET['parking'] ?? '';
 ?>
 
 <!DOCTYPE html>
@@ -16,22 +19,7 @@ require __DIR__ . '/data/hotel.php';
 </head>
 <body>
     <!-- Header -->
-    <header>
-        <div class="container d-flex justify-content-between align-items-center h-100">
-            <h1>Hotels</h1>
-            <form action="index.php">
-                <div class="btn-group" role="group" aria-label="Basic checkbox toggle button group">
-                    <input type="checkbox" class="btn-check" id="btncheck1" autocomplete="off" name="parking">
-                    <label class="btn btn-outline-primary" for="btncheck1">Parking</label>
-                    
-                    <input type="checkbox" class="btn-check" id="btncheck2" autocomplete="off" name="vote">
-                    <label class="btn btn-outline-primary" for="btncheck2">Vote</label>
-
-                    <button class="btn btn-outline-primary">Cerca</button>
-                </div>
-            </form>
-        </div>
-    </header>
+    <?php include __DIR__ . '/template/header.html' ?>
 
     <main class="container mt-5">
         <table class="table">
@@ -46,10 +34,13 @@ require __DIR__ . '/data/hotel.php';
             </thead>
             <tbody>
                 <?php foreach($hotels as $hotel) : ?>
-                <tr>
+                <tr class="<?php
+                if($parking){ echo $hotel['parking'] === false ? 'd-none ' : ''; } 
+                if($vote){ echo $hotel['vote'] <= 3 ? 'd-none ' : ''; }
+                ?>">
                     <td><?= $hotel['name'] ?></td>
                     <td><?= $hotel['description'] ?></td>
-                    <td><?php echo $hotel['parking'] === true ? 'Libero' : 'Occupato'  ?></td>
+                    <td><?= $hotel['parking'] === true ? 'Libero' : 'Occupato'  ?></td>
                     <td><?= $hotel['vote'] ?></td>
                     <td><?= $hotel['distance_to_center'] ?></td>
                 </tr>
