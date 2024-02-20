@@ -1,3 +1,8 @@
+<?php
+require 'data/hotel.php';
+var_dump($hotels);
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -6,6 +11,14 @@
     <title>Document</title>
 </head>
 <body>
-    
+    <?php foreach($hotels as $hotel) : ?>
+    <ul>
+        <li><?= $hotel['name'] ?></li>
+        <li><?= $hotel['description'] ?></li>
+        <li><?= $hotel['parking'] ?></li>
+        <li><?= $hotel['vote'] ?></li>
+        <li><?= $hotel['distance_to_center'] ?></li>
+    </ul>
+    <?php endforeach ?>
 </body>
 </html>
